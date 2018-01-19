@@ -75,54 +75,22 @@ class CreateRoom extends React.Component
             );          
         }
          //Custom Functions
-    handleSubmit(e){        
-        e.preventDefault();        
-
+    handleSubmit(e){   
+    
+        // e.preventDefault();   
         var roomData = {
             "roomnumber": this.refs.newRoomNumber.value,
             "adultscapacity": this.refs.newAdultsCapacity.value,
             "childrencapacity": this.refs.newChildrenCapacity.value,
             "price": this.refs.newPrice.value,
             "available": true
-        };
-        console.log(roomData);
+        };     
+       
+         this.props.onSubmit(roomData)
+       
 
-        // var data = new FormData();
-        // data.append("json", JSON.stringify(roomData));
-        fetch("http://localhost:8081/api/rooms",
-            {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                  },
-                body: JSON.stringify(roomData)
-            })
-            .then(function (res) { return res.json(); })
-            .then(function (data) { alert(JSON.stringify(data)) })
-
-        // fetch('http://localhost:8081/api/rooms'){
-        //     method: "POST",
-        //     body: data
-        // }).then(function(data)
-        //     {
-        //             return data.json();
-        //     }
-        // ).then(json =>{
-        //     console.log(json);
-        // });
-
-        //Edit Record
-        // fetch('http://localhost:8081/api/rooms?roomNumber=101').then(function(data)
-        //     {
-        //             return data.json();
-        //     }
-        // ).then(json =>{
-        //     console.log(json);
-        // });
-
-        //     e.preventDefault();
-        // this.props.onAdd(this.refs.newItem.value);
+  
+       
     }
        
 }

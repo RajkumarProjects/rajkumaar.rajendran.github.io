@@ -47,6 +47,14 @@ class TodoComponent extends React.Component {
     componentDidMount() {
         this.UserList();
     }
+
+    componentDidUpdate() {
+        this.UserList();
+    }
+    componentWillUpdate() {
+        this.UserList();
+    }
+    
     UserList() {
         fetch('http://localhost:8081/api/getallrooms').then(function (results) {
             return results.json();
@@ -87,7 +95,7 @@ class TodoComponent extends React.Component {
                 {/* <a onClick={this.onClick.bind(this)} href='#'>New Room</a> */}
                 {this.state.showReply && < Back onBackClick={this.onBackClick.bind(this)}/>}
                 {/* <a onClick={this.onBackToListClick.bind(this)} href='#'>Back to List</a> */}
-                {this.state.showReply && < CreateRoom id={this.state.idValue} />}
+                {this.state.showReply && < CreateRoom id={this.state.idValue} onSubmit={this.onSubmit.bind(this)} />}
                 {!this.state.showReply && <  GridList person={person} />}               
             </div>
         );
@@ -127,6 +135,19 @@ class TodoComponent extends React.Component {
         this.setState({ showReply: true })
         // this.render();
         // this.setState({ showReply: !this.state.showReply })
+    }
+    onSubmit(roomData){
+        fetch("http://localhost:8081/api/rooms",
+        {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify(roomData)
+        })
+        .then(function (res) { return res.json(); })
+        .then(function (data) { alert(JSON.stringify(data)) })
     }
 }
 
